@@ -1,18 +1,19 @@
 # Hi there,👋
-### in this page you can explore my projects related to Software Engineering and AI. 
+### Explore my works related to SE & AI. 
 
-- 🌱 My background involved with .NET ecosystem.
-- 🔭 I’m currently working on integrating Agentic AI with software systems ...
+- 🌱 My background involved with .NET.
+- 🔭 I’m currently working on integrating Agentic AI to automate software systems.
 
   <img width="20" src="https://img.shields.io/badge/%20-512BD4?logo=dotnet&logoColor=white" />
   <strong>Deep knowledge in .NET</strong>
-  <p>5+ Years of hands‑on experience building scalable backend systems, and high‑performance applications using .NET Core, EF, and modern architectural patterns.</p>
+  <p>5+ Years of hands‑on experience building scalable backend systems, and high‑performance applications using .NET Core, and reliable software architectures.</p>
   <img width="20" src="https://img.shields.io/badge/%20-512BD4?logo=blazor&logoColor=white" />
   <strong>Strong frontend experience</strong>
   <p>Expert in Blazor Server & WebAssembly, dynamic component generation, JS interop, and crafting clean, maintainable UI architectures with reusable patterns.</p>
   <img width="20" src="https://img.shields.io/badge/C%23-512BD4?logo=csharp&logoColor=white" />
   <strong>Problem‑solver programmer</strong>
   <p>Passionate about algorithms, debugging, and writing elegant, efficient code. Skilled in breaking down complex problems and delivering robust solutions.</p>
+  
 <!--
 **mjn110/mjn110** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
