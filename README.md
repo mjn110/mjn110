@@ -1,7 +1,7 @@
 # Hi there,👋
 ### in this page you can explore my projects related to Software Engineering and AI. 
 
-- 🌱 My background involved with .NET and Blazor ...
+- 🌱 My background involved with .NET ecosystem.
 - 🔭 I’m currently working on integrating Agentic AI with software systems ...
 
   <img width="20" src="https://img.shields.io/badge/%20-512BD4?logo=dotnet&logoColor=white" />
