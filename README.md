@@ -1,4 +1,6 @@
-## Hi, in this page you can explore my projects related to Software Engineering and AI. 👋
+# Hi there,👋
+### in this page you can explore my projects related to Software Engineering and AI. 
+
 - 🌱 My background involved with .NET and Blazor ...
 - 🔭 I’m currently working on integrating Agentic AI with software systems ...
 
