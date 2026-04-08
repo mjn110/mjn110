@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Najafi | Solutions Developer</title>
+<meta name="description" content="Muhammad Najafi - Solutions Developer with 5+ years experience in C#, ASP.NET Core, and Blazor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Reset & Base ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: hsl(220, 20%, 98%);
+  --fg: hsl(220, 25%, 10%);
+  --card: hsl(0, 0%, 100%);
+  --primary: hsl(220, 90%, 56%);
+  --primary-fg: hsl(0, 0%, 100%);
+  --secondary-bg: hsl(220, 20%, 96%);
+  --muted: hsl(220, 15%, 94%);
+  --muted-fg: hsl(220, 10%, 45%);
+  --accent: hsl(280, 85%, 60%);
+  --border: hsl(220, 15%, 90%);
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --shadow-card: 0 4px 20px -4px hsl(220 25% 10% / 0.08);
+  --shadow-card-hover: 0 20px 40px -8px hsl(220 25% 10% / 0.15), 0 8px 16px -4px hsl(220 90% 56% / 0.1);
+  --radius: 1rem;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
+
+a { color: inherit; text-decoration: none; }
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Layout ===== */
+.section { padding: 6rem 1.5rem; position: relative; overflow: hidden; }
+.section--alt { background: hsl(220, 20%, 96%, 0.3); }
+.container { max-width: 80rem; margin: 0 auto; }
+
+@media (min-width: 768px) { .section { padding: 8rem 3rem; } }
+@media (min-width: 1024px) { .section { padding: 8rem 5rem; } }
+
+/* ===== Hero ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute; inset: 0;
+  background: var(--bg);
+}
+
+.hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+.hero__orb--1 { top: 25%; left: 25%; width: 24rem; height: 24rem; background: hsl(220, 90%, 56%, 0.2); }
+.hero__orb--2 { bottom: 25%; right: 25%; width: 20rem; height: 20rem; background: hsl(280, 85%, 60%, 0.2); }
+.hero__orb--3 {
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 37rem; height: 37rem;
+  background: linear-gradient(135deg, hsl(220, 90%, 56%, 0.1), hsl(280, 85%, 60%, 0.1));
+}
+
+.hero__grid {
+  position: absolute; inset: 0; opacity: 0.03;
+  background-image: linear-gradient(var(--fg) 1px, transparent 1px), linear-gradient(90deg, var(--fg) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero__content { position: relative; z-index: 10; max-width: 72rem; margin: 0 auto; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 1rem; border-radius: 9999px;
+  background: hsl(220, 90%, 56%, 0.1);
+  border: 1px solid hsl(220, 90%, 56%, 0.2);
+  font-size: 0.875rem; font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.badge__dot {
+  width: 0.5rem; height: 0.5rem; border-radius: 50%;
+  background: hsl(142, 71%, 45%);
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.hero__title { font-size: clamp(1.25rem, 3vw, 1.875rem); color: var(--muted-fg); font-weight: 500; margin-bottom: 2rem; font-family: var(--font-display); }
+
+.hero__summary { color: hsl(220, 25%, 10%, 0.7); font-size: clamp(1rem, 1.5vw, 1.125rem); max-width: 42rem; margin-bottom: 3rem; line-height: 1.8; }
+
+.contact-row { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2.5rem; }
+
+.contact-item {
+  display: flex; align-items: center; gap: 0.5rem;
+  color: hsl(220, 25%, 10%, 0.7); font-size: 0.875rem; font-weight: 500;
+  transition: color 0.3s;
+}
+.contact-item:hover { color: var(--primary); }
+
+.contact-item__icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 2.25rem; height: 2.25rem; border-radius: 0.5rem;
+  background: var(--muted); transition: background 0.3s;
+}
+.contact-item:hover .contact-item__icon { background: hsl(220, 90%, 56%, 0.1); }
+
+.social-links { display: flex; gap: 1rem; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem 1.25rem; border-radius: 0.75rem;
+  font-size: 0.875rem; font-weight: 500;
+  transition: transform 0.3s, background 0.3s, border-color 0.3s;
+  border: 1px solid transparent;
+}
+
+.btn--primary { background: var(--fg); color: var(--bg); }
+.btn--primary:hover { transform: scale(1.05); }
+
+.btn--outline { border-color: var(--border); background: var(--card); }
+.btn--outline:hover { border-color: hsl(220, 90%, 56%, 0.4); background: hsl(220, 90%, 56%, 0.05); }
+
+/* ===== Section Header ===== */
+.section-header {
+  display: flex; flex-direction: column; gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .section-header { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+}
+
+.section-header__label {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.section-header__icon {
+  padding: 0.5rem; border-radius: 0.5rem;
+  background: hsl(220, 90%, 56%, 0.1);
+  color: var(--primary);
+  display: flex; align-items: center;
+}
+
+.section-header__tag {
+  font-size: 0.75rem; font-weight: 500;
+  color: var(--primary); text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.section-header h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; }
+
+.section-header__desc { color: var(--muted-fg); max-width: 28rem; text-align: right; }
+
+/* ===== Card ===== */
+.card {
+  position: relative; border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 1.5rem;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.5s, border-color 0.3s, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (min-width: 768px) { .card { padding: 2rem; } }
+
+.card:hover {
+  border-color: hsl(220, 90%, 56%, 0.4);
+  box-shadow: var(--shadow-card-hover);
+  transform: scale(1.02);
+}
+
+.card__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, hsl(220, 90%, 56%, 0.05), transparent, hsl(280, 85%, 60%, 0.05));
+  opacity: 0; transition: opacity 0.5s; pointer-events: none;
+}
+.card:hover .card__overlay { opacity: 1; }
+
+.card__corner {
+  position: absolute; top: 0; right: 0;
+  width: 5rem; height: 5rem;
+  background: linear-gradient(225deg, hsl(220, 90%, 56%, 0.1), transparent);
+  border-radius: 0 0 0 100%;
+  opacity: 0; transition: opacity 0.5s;
+}
+.card:hover .card__corner { opacity: 0.5; }
+
+.card__inner { position: relative; z-index: 1; }
+
+.card__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: 1.125rem; font-weight: 600;
+  transition: color 0.3s;
+}
+.card:hover .card__title { color: var(--primary); }
+
+.card__badge {
+  padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 500;
+  background: hsl(220, 90%, 56%, 0.1); color: var(--primary);
+  border-radius: 9999px; white-space: nowrap;
+}
+
+.card__subtitle { font-size: 0.875rem; color: var(--muted-fg); margin-top: 0.25rem; }
+
+.card__body { margin-top: 1rem; color: hsl(220, 25%, 10%, 0.8); font-size: 0.875rem; line-height: 1.7; }
+
+.card__chevron {
+  display: flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem; border-radius: 50%;
+  background: hsl(220, 15%, 94%, 0.5);
+  transition: background 0.5s, transform 0.5s;
+  flex-shrink: 0;
+}
+.card:hover .card__chevron { background: hsl(220, 90%, 56%, 0.1); transform: rotate(90deg); }
+
+.card__chevron svg { width: 1rem; height: 1rem; color: var(--muted-fg); transition: color 0.3s; }
+.card:hover .card__chevron svg { color: var(--primary); }
+
+/* Expandable content */
+.card__expandable {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.5s ease-out, opacity 0.5s ease-out, margin-top 0.5s;
+  margin-top: 0;
+}
+.card:hover .card__expandable {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 1.5rem;
+}
+.card__expandable-inner { overflow: hidden; }
+.card__expandable-content { padding-top: 1.5rem; border-top: 1px solid hsl(220, 15%, 90%, 0.5); }
+
+.detail-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+
+.detail-item {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  font-size: 0.875rem; color: var(--muted-fg);
+}
+
+.detail-dot {
+  width: 0.375rem; height: 0.375rem; border-radius: 50%;
+  background: var(--primary); margin-top: 0.5rem; flex-shrink: 0;
+}
+
+/* ===== Grid Layouts ===== */
+.grid-2 { display: grid; gap: 1.5rem; }
+@media (min-width: 768px) { .grid-2 { grid-template-columns: repeat(2, 1fr); } }
+
+.grid-4 { display: grid; gap: 1rem; }
+@media (min-width: 768px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .grid-4 { grid-template-columns: repeat(4, 1fr); } }
+
+/* Width expansion for grid items */
+@media (min-width: 768px) {
+  .grid-4 .card:hover { grid-column: span 2; }
+}
+
+/* ===== Skill Tags ===== */
+.tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.tag {
+  padding: 0.375rem 0.75rem; font-size: 0.75rem; font-weight: 500;
+  background: var(--muted); color: var(--muted-fg);
+  border-radius: 0.5rem;
+}
+
+.tag--accent { background: hsl(220, 90%, 56%, 0.1); color: var(--primary); }
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg), hsl(220, 90%, 56%, 0.05), hsl(220, 90%, 56%, 0.1));
+}
+
+.footer h3 { font-size: clamp(2rem, 6vw, 4.5rem); font-weight: 700; margin-bottom: 1.5rem; }
+
+.footer__desc { color: var(--muted-fg); font-size: clamp(1rem, 2vw, 1.25rem); max-width: 42rem; margin: 0 auto 2.5rem; }
+
+.footer__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 4rem; }
+
+.footer__bottom {
+  padding-top: 2rem; border-top: 1px solid hsl(220, 15%, 90%, 0.5);
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+}
+@media (min-width: 768px) { .footer__bottom { flex-direction: row; justify-content: space-between; } }
+
+.footer__copy { font-size: 0.875rem; color: var(--muted-fg); }
+.footer__tagline { font-size: 0.75rem; color: hsl(220, 10%, 45%, 0.6); }
+
+/* ===== Project Links ===== */
+.project-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+
+.project-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 1rem; font-size: 0.875rem;
+  border-radius: 0.5rem; transition: background 0.3s;
+}
+.project-link--gh { background: var(--muted); }
+.project-link--gh:hover { background: hsl(220, 15%, 90%); }
+.project-link--live { background: var(--primary); color: var(--primary-fg); }
+.project-link--live:hover { background: hsl(220, 90%, 50%); }
+
+/* ===== SVG icon sizing ===== */
+.icon { width: 1.25rem; height: 1.25rem; }
+.icon-sm { width: 1rem; height: 1rem; }
+
+/* Background decorations */
+.bg-blob {
+  position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero__bg">
+    <div class="hero__orb hero__orb--1"></div>
+    <div class="hero__orb hero__orb--2"></div>
+    <div class="hero__orb hero__orb--3"></div>
+    <div class="hero__grid"></div>
+  </div>
+  <div class="hero__content section">
+    <div class="badge">
+      <span class="badge__dot"></span>
+      <span>Available for opportunities</span>
+    </div>
+    <h1>Muhammad<br><span class="gradient-text">Najafi</span></h1>
+    <p class="hero__title">Solutions Developer</p>
+    <p class="hero__summary">A solutions developer with 5+ years' experience in C# and ASP.NET Core with strong expertise in Blazor for building scalable apps. Focused on clean code, performance optimization, and secure implementation.</p>
+    <div class="contact-row">
+      <a href="mailto:mjn220@gmail.com" class="contact-item">
+        <span class="contact-item__icon"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+        mjn220@gmail.com
+      </a>
+      <a href="tel:+4407904114515" class="contact-item">
+        <span class="contact-item__icon"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></span>
+        07904114515
+      </a>
+      <span class="contact-item">
+        <span class="contact-item__icon"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        Birmingham, UK
+      </span>
+    </div>
+    <div class="social-links">
+      <a href="https://github.com/mjn110" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/mj-najafi" target="_blank" rel="noopener noreferrer" class="btn btn--outline">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== EXPERIENCE ===== -->
+<section class="section">
+  <div class="bg-blob" style="left:0;top:50%;transform:translateY(-50%);width:18rem;height:18rem;background:hsl(220,90%,56%,0.05);"></div>
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-header__label">
+          <span class="section-header__icon"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></span>
+          <span class="section-header__tag">Career</span>
+        </div>
+        <h2>Work Experience</h2>
+      </div>
+      <p class="section-header__desc">Building scalable solutions across multiple industries and technologies</p>
+    </div>
+    <div class="grid-2">
+
+      <div class="card">
+        <div class="card__overlay"></div>
+        <div class="card__corner"></div>
+        <div class="card__inner">
+          <div class="card__header">
+            <div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+                <span class="card__title">Senior Software Developer</span>
+                <span class="card__badge">6 Months</span>
+              </div>
+              <p class="card__subtitle">Enterprise AI Academy · Jul 2025 – Dec 2025</p>
+            </div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="card__body">Constructed training AI system and dashboards for business monitoring and data analysis.</div>
+          <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+            <ul class="detail-list">
+              <li class="detail-item"><span class="detail-dot"></span><span>Combined ML models and software to build data-driven dashboard for analytical purposes</span></li>
+            </ul>
+          </div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__overlay"></div>
+        <div class="card__corner"></div>
+        <div class="card__inner">
+          <div class="card__header">
+            <div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+                <span class="card__title">Senior Software Developer</span>
+                <span class="card__badge">2 Years</span>
+              </div>
+              <p class="card__subtitle">Vira Development Group · Jul 2021 – Dec 2023</p>
+            </div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="card__body">Led backend development team for creating a high-scale social media message assistant.</div>
+          <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+            <ul class="detail-list">
+              <li class="detail-item"><span class="detail-dot"></span><span>Increased revenue by replacing frontend tech with Blazor, downsizing team from 7 to 4 members</span></li>
+              <li class="detail-item"><span class="detail-dot"></span><span>Proposed IoC design principle adoption, reducing code duplication by 50%</span></li>
+              <li class="detail-item"><span class="detail-dot"></span><span>Built frontend component library in Blazor from scratch, improving scalability</span></li>
+              <li class="detail-item"><span class="detail-dot"></span><span>Applied Clean Architecture and SOLID principles for modular components</span></li>
+              <li class="detail-item"><span class="detail-dot"></span><span>Organized CI/CD pipelines using Azure DevOps, GitHub Actions, and Docker</span></li>
+            </ul>
+          </div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__overlay"></div>
+        <div class="card__corner"></div>
+        <div class="card__inner">
+          <div class="card__header">
+            <div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+                <span class="card__title">Software Developer</span>
+                <span class="card__badge">2 Years</span>
+              </div>
+              <p class="card__subtitle">Vira Development Group · Jul 2019 – Jun 2021</p>
+            </div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="card__body">Designed cloud-native applications using Azure, optimizing security and performance.</div>
+          <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+            <ul class="detail-list">
+              <li class="detail-item"><span class="detail-dot"></span><span>Designed secure web applications with OAuth 2.0, JWT, and claim-based security</span></li>
+              <li class="detail-item"><span class="detail-dot"></span><span>Modernized legacy elements into Blazor-based solutions</span></li>
+              <li class="detail-item"><span class="detail-dot"></span><span>Created reusable UI elements using JavaScript</span></li>
+            </ul>
+          </div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__overlay"></div>
+        <div class="card__corner"></div>
+        <div class="card__inner">
+          <div class="card__header">
+            <div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+                <span class="card__title">.NET Developer</span>
+                <span class="card__badge">1 Year</span>
+              </div>
+              <p class="card__subtitle">Daymond · Mar 2018 – Mar 2019</p>
+            </div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="card__body">Created Persian date and pattern transformation with ASP.NET MVC.</div>
+          <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+            <ul class="detail-list">
+              <li class="detail-item"><span class="detail-dot"></span><span>Developed pharmaceutical company marketing system design</span></li>
+              <li class="detail-item"><span class="detail-dot"></span><span>Built .NET web form applications focusing on OOP and data integration</span></li>
+            </ul>
+          </div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== EDUCATION ===== -->
+<section class="section section--alt">
+  <div class="bg-blob" style="right:0;top:33%;width:24rem;height:24rem;background:hsl(280,85%,60%,0.05);"></div>
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-header__label">
+          <span class="section-header__icon" style="background:hsl(280,85%,60%,0.1);color:var(--accent);"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1 4 3 6 3s6-2 6-3v-5"/></svg></span>
+          <span class="section-header__tag" style="color:var(--accent);">Academic</span>
+        </div>
+        <h2>Education</h2>
+      </div>
+      <p class="section-header__desc">Continuous learning from software engineering to artificial intelligence</p>
+    </div>
+    <div class="grid-2">
+
+      <div class="card">
+        <div class="card__overlay"></div>
+        <div class="card__corner"></div>
+        <div class="card__inner">
+          <div class="card__header">
+            <div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+                <span class="card__title">Postgraduate in Artificial Intelligence</span>
+                <span class="card__badge">2024 – 2025</span>
+              </div>
+              <p class="card__subtitle">Aston University</p>
+            </div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="card__body"><em style="color:var(--muted-fg);opacity:0.7;">Hover to see achievements</em></div>
+          <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+            <ul class="detail-list">
+              <li class="detail-item"><span class="detail-dot" style="background:var(--accent);"></span><span>Built an agent-based navigation system for game NPCs in Unreal Engine 5</span></li>
+            </ul>
+          </div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__overlay"></div>
+        <div class="card__corner"></div>
+        <div class="card__inner">
+          <div class="card__header">
+            <div>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+                <span class="card__title">Bachelor's in Software Engineering</span>
+                <span class="card__badge">2013 – 2017</span>
+              </div>
+              <p class="card__subtitle">Shahab Danesh University</p>
+            </div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="card__body"><em style="color:var(--muted-fg);opacity:0.7;">Hover to see achievements</em></div>
+          <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+            <ul class="detail-list">
+              <li class="detail-item"><span class="detail-dot" style="background:var(--accent);"></span><span>Participated in inter-universities programming contest, achieving fifth place</span></li>
+              <li class="detail-item"><span class="detail-dot" style="background:var(--accent);"></span><span>Taught C# and C++ console apps to students, helping with 50+ assessments</span></li>
+            </ul>
+          </div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="section">
+  <div class="bg-blob" style="left:25%;bottom:0;width:20rem;height:20rem;background:hsl(220,90%,56%,0.05);"></div>
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-header__label">
+          <span class="section-header__icon"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+          <span class="section-header__tag">Portfolio</span>
+        </div>
+        <h2>Open-Source Projects</h2>
+      </div>
+      <p class="section-header__desc">Building tools and libraries for the developer community</p>
+    </div>
+    <div class="grid-2">
+
+      <div class="card">
+        <div class="card__overlay"></div><div class="card__corner"></div>
+        <div class="card__inner">
+          <div class="card__header">
+            <div><span class="card__title">BIL (Blazor Interface Library)</span><p class="card__subtitle">github.com/mjn110/Bil</p></div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="card__body">Smart UI components for Blazor Server with customizable rendering approach</div>
+          <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+            <p style="font-size:0.875rem;color:var(--muted-fg);line-height:1.7;">A collection of smart UI components developed over Blazor Server to enhance frontend development efficiency. Introduced a customizable rendering approach allowing developers to use or modify components in real time without writing code.</p>
+            <div class="project-links">
+              <a href="https://github.com/mjn110/Bil" target="_blank" rel="noopener noreferrer" class="project-link project-link--gh"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> View Source</a>
+              <a href="https://blazorinterfacelibrary.com" target="_blank" rel="noopener noreferrer" class="project-link project-link--live"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Live Demo</a>
+            </div>
+          </div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__overlay"></div><div class="card__corner"></div>
+        <div class="card__inner">
+          <div class="card__header">
+            <div><span class="card__title">Student Enrollment</span><p class="card__subtitle">github.com/mjn110/StudentEnrollment</p></div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="card__body">Microsoft standard authentication system in Blazor</div>
+          <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+            <p style="font-size:0.875rem;color:var(--muted-fg);line-height:1.7;">A sample of Microsoft standard authentication system designed in a Blazor app with a student enrollment subject for a university.</p>
+            <div class="project-links">
+              <a href="https://github.com/mjn110/StudentEnrollment" target="_blank" rel="noopener noreferrer" class="project-link project-link--gh"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> View Source</a>
+            </div>
+          </div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__overlay"></div><div class="card__corner"></div>
+        <div class="card__inner">
+          <div class="card__header">
+            <div><span class="card__title">Subscription Classifier</span><p class="card__subtitle">github.com/mjn110/SubscriptionClassifier</p></div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="card__body">ML model for detecting bank customer subscriptions</div>
+          <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+            <p style="font-size:0.875rem;color:var(--muted-fg);line-height:1.7;">Utilized various classifiers and feature engineering over input dataset to predict bank customer subscription patterns.</p>
+            <div class="project-links">
+              <a href="https://github.com/mjn110/SubscriptionClassifier" target="_blank" rel="noopener noreferrer" class="project-link project-link--gh"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> View Source</a>
+            </div>
+          </div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__overlay"></div><div class="card__corner"></div>
+        <div class="card__inner">
+          <div class="card__header">
+            <div><span class="card__title">Todo (Blazor MAUI)</span><p class="card__subtitle">github.com/mjn110/Todo</p></div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </div>
+          <div class="card__body">Cross-platform task management with Clean Architecture</div>
+          <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+            <p style="font-size:0.875rem;color:var(--muted-fg);line-height:1.7;">A task management system produced over a clean architecture in Blazor MAUI. Used different types of APIs to enable component access across platforms.</p>
+            <div class="project-links">
+              <a href="https://github.com/mjn110/Todo" target="_blank" rel="noopener noreferrer" class="project-link project-link--gh"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> View Source</a>
+            </div>
+          </div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section class="section section--alt">
+  <div class="bg-blob" style="right:0;top:25%;width:18rem;height:18rem;background:hsl(220,90%,56%,0.05);"></div>
+  <div class="bg-blob" style="left:0;bottom:25%;width:24rem;height:24rem;background:hsl(280,85%,60%,0.05);"></div>
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-header__label">
+          <span class="section-header__icon"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></span>
+          <span class="section-header__tag">Expertise</span>
+        </div>
+        <h2>Technologies & Skills</h2>
+      </div>
+      <p class="section-header__desc">A comprehensive toolkit for building modern applications</p>
+    </div>
+    <div class="grid-4">
+
+      <div class="card"><div class="card__overlay"></div><div class="card__corner"></div><div class="card__inner">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span class="card__title" style="font-size:1rem;">Programming Languages</span>
+          <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="tag-list">
+          <span class="tag">C#</span><span class="tag">C++</span><span class="tag">SQL</span>
+          <span class="tag tag--accent">+3 more</span>
+        </div>
+        <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+          <div class="tag-list"><span class="tag tag--accent">VB.NET</span><span class="tag tag--accent">JavaScript</span><span class="tag tag--accent">TypeScript</span></div>
+        </div></div></div>
+      </div></div>
+
+      <div class="card"><div class="card__overlay"></div><div class="card__corner"></div><div class="card__inner">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span class="card__title" style="font-size:1rem;">Frontend Development</span>
+          <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="tag-list">
+          <span class="tag">Blazor</span><span class="tag">Razor</span><span class="tag">CSS</span>
+          <span class="tag tag--accent">+1 more</span>
+        </div>
+        <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+          <div class="tag-list"><span class="tag tag--accent">Bootstrap</span></div>
+        </div></div></div>
+      </div></div>
+
+      <div class="card"><div class="card__overlay"></div><div class="card__corner"></div><div class="card__inner">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span class="card__title" style="font-size:1rem;">Backend & Cloud</span>
+          <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="tag-list">
+          <span class="tag">ASP.NET Core</span><span class="tag">Azure</span><span class="tag">Azure AI</span>
+          <span class="tag tag--accent">+2 more</span>
+        </div>
+        <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+          <div class="tag-list"><span class="tag tag--accent">REST APIs</span><span class="tag tag--accent">WCF/SOAP</span></div>
+        </div></div></div>
+      </div></div>
+
+      <div class="card"><div class="card__overlay"></div><div class="card__corner"></div><div class="card__inner">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span class="card__title" style="font-size:1rem;">Databases</span>
+          <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="tag-list">
+          <span class="tag">SQL Server</span><span class="tag">PostgreSQL</span><span class="tag">EF Core</span>
+          <span class="tag tag--accent">+1 more</span>
+        </div>
+        <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+          <div class="tag-list"><span class="tag tag--accent">LINQ</span></div>
+        </div></div></div>
+      </div></div>
+
+      <div class="card"><div class="card__overlay"></div><div class="card__corner"></div><div class="card__inner">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span class="card__title" style="font-size:1rem;">Security</span>
+          <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="tag-list">
+          <span class="tag">OAuth 2.0</span><span class="tag">JWT</span><span class="tag">Claim-Based</span>
+          <span class="tag tag--accent">+2 more</span>
+        </div>
+        <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+          <div class="tag-list"><span class="tag tag--accent">Role-Based Auth</span><span class="tag tag--accent">IIS Best Practices</span></div>
+        </div></div></div>
+      </div></div>
+
+      <div class="card"><div class="card__overlay"></div><div class="card__corner"></div><div class="card__inner">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span class="card__title" style="font-size:1rem;">DevOps & Tools</span>
+          <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="tag-list">
+          <span class="tag">Azure DevOps</span><span class="tag">Git</span><span class="tag">Docker</span>
+          <span class="tag tag--accent">+3 more</span>
+        </div>
+        <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+          <div class="tag-list"><span class="tag tag--accent">Kubernetes</span><span class="tag tag--accent">CI/CD</span><span class="tag tag--accent">GitHub Actions</span></div>
+        </div></div></div>
+      </div></div>
+
+      <div class="card"><div class="card__overlay"></div><div class="card__corner"></div><div class="card__inner">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span class="card__title" style="font-size:1rem;">Testing</span>
+          <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="tag-list">
+          <span class="tag">Unit Testing</span><span class="tag">TDD</span><span class="tag">xUnit</span>
+          <span class="tag tag--accent">+1 more</span>
+        </div>
+        <div class="card__expandable"><div class="card__expandable-inner"><div class="card__expandable-content">
+          <div class="tag-list"><span class="tag tag--accent">bUnit</span></div>
+        </div></div></div>
+      </div></div>
+
+      <div class="card"><div class="card__overlay"></div><div class="card__corner"></div><div class="card__inner">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span class="card__title" style="font-size:1rem;">AI & ML</span>
+          <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+        <div class="tag-list">
+          <span class="tag">Machine Learning</span><span class="tag">AI Integration</span><span class="tag">Copilot</span>
+        </div>
+      </div></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="section footer">
+  <div class="bg-blob" style="left:50%;transform:translateX(-50%);bottom:0;width:50rem;height:25rem;background:hsl(220,90%,56%,0.15);"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <h3>Let's Build Something<br><span class="gradient-text">Together</span></h3>
+    <p class="footer__desc">Open to opportunities in .NET development, Blazor projects, and AI integration.</p>
+    <div class="footer__links">
+      <a href="mailto:mjn220@gmail.com" class="btn btn--primary" style="padding:1rem 1.5rem;border-radius:1rem;">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Get in Touch
+      </a>
+      <a href="https://github.com/mjn110" target="_blank" rel="noopener noreferrer" class="btn btn--outline" style="padding:1rem 1.5rem;border-radius:1rem;">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/mj-najafi" target="_blank" rel="noopener noreferrer" class="btn btn--outline" style="padding:1rem 1.5rem;border-radius:1rem;">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2026 Muhammad Najafi. All rights reserved.</p>
+      <p class="footer__tagline">Built with passion for clean code</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
