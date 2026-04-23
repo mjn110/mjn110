@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="PersonalWebsite.AppHost/PersonalWebsite.AppHost.csproj" />
+  <Project Path="PersonalWebsite.ServiceDefaults/PersonalWebsite.ServiceDefaults.csproj" />
+  <Project Path="PersonalWebsite/PersonalWebsite.csproj" />
+</Solution>
