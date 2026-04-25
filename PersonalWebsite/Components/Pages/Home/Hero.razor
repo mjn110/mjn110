@@ -8,24 +8,24 @@
     <div class="hero__content section">
         <div class="badge">
             <span class="badge__dot"></span>
-            <span>Available for opportunities</span>
+            <span>@Availability</span>
         </div>
-        <h1>Muhammad<br><span class="gradient-text">Najafi</span></h1>
-        <p class="hero__title">Senior Software Engineer</p>
-        <p class="hero__summary">A solutions developer with 5+ years' experience in C# and ASP.NET Core with strong expertise in Blazor for building scalable apps. Focused on clean code, performance optimization, and secure implementation.</p>
+        <h1>@Firstname<br><span class="gradient-text">@Lastname</span></h1>
+        <p class="hero__title">@Position</p>
+        <p class="hero__summary">@Summary</p>
         <div class="contact-row">
+            <span class="contact-item">
+                <span class="contact-item__icon"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg></span>
+                @Location
+            </span>
             <a href="mailto:mjn220@gmail.com" class="contact-item">
                 <span class="contact-item__icon"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg></span>
-                mjn220@gmail.com
+                @Email
             </a>
             <a href="tel:+4407904114515" class="contact-item">
                 <span class="contact-item__icon"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg></span>
-                07904114515
+                @Phone
             </a>
-            <span class="contact-item">
-                <span class="contact-item__icon"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg></span>
-                Birmingham, UK
-            </span>
         </div>
         <div class="social-links">
             <a href="https://github.com/mjn110" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
@@ -41,5 +41,53 @@
 </header>
 
 @code {
+    public string Availability { get; set; } = string.Empty;
+    public string Firstname { get; set; } = "Muhammad";
+    public string Lastname { get; set; } = "Najafi";
+    public string Position { get; set; } = string.Empty;
+    public string Summary { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
+    public string Location { get; set; } = string.Empty;
 
+        protected override Task OnInitializedAsync()
+    {
+        SetAvailability();
+        SetPosition();
+        SetSummary();
+        SetEmail();
+        SetPhone();
+        SetLocation();
+        return base.OnInitializedAsync();
+    }
+
+    void SetAvailability()
+    {
+            Availability = "Available for opportunities";
+    }
+
+    void SetPosition()
+    {
+        Position = "Senior Software Engineer";
+    }
+
+    void SetSummary()
+    {
+        Summary = "A solutions developer with 5+ years' experience in C# and ASP.NET Core with strong expertise in Blazor for building scalable apps. Focused on clean code, performance optimization, and secure implementation.";
+    }
+
+    void SetEmail()
+    {
+        Email = "mjn220@gmail.com";
+    }
+
+    void SetPhone()
+    {
+        Phone = "07904114515";
+    }
+
+    void SetLocation()
+    {
+        Location = "Birmingham, UK";
+    }
 }
