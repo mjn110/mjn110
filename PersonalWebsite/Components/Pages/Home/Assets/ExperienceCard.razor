@@ -1,0 +1,47 @@
+﻿<div class="card">
+    <div class="card__overlay"></div>
+    <div class="card__corner"></div>
+    <div class="card__inner">
+        <div class="card__header">
+            <div>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
+                    <span class="card__title">@Role</span>
+                    <span class="card__badge">@Duration</span>
+                </div>
+                <p class="card__subtitle">@Company · @From – @To</p>
+            </div>
+            <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg></div>
+        </div>
+        <div class="card__body">@Summary</div>
+        <div class="card__expandable">
+            <div class="card__expandable-inner">
+                <div class="card__expandable-content">
+                    <ul class="detail-list">
+@*                         @foreach (var option in Options)
+                        {
+                            <li class="detail-item"><span class="detail-dot"></span><span>@option</span></li>
+                        } *@
+                        @Options
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Role { get; set; } = string.Empty;
+    [Parameter]
+    public string Duration { get; set; } = string.Empty;
+    [Parameter]
+    public string Company { get; set; } = string.Empty;
+    [Parameter]
+    public string From { get; set; } = string.Empty;
+    [Parameter]
+    public string To { get; set; } = string.Empty;
+    [Parameter]
+    public string Summary { get; set; } = string.Empty;
+    [Parameter]
+    public RenderFragment Options { get; set; } = default!;
+}
