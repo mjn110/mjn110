@@ -5,14 +5,14 @@
         <div class="card__header">
             <div>
                 <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;">
-                    <span class="card__title">@Role</span>
+                    <span class="card__title">@Course</span>
                     <span class="card__badge">@Duration</span>
                 </div>
-                <p class="card__subtitle">@Company · @From – @To</p>
+                <p class="card__subtitle">@University</p>
             </div>
             <div class="card__chevron"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6" /></svg></div>
         </div>
-        <div class="card__body">@Summary</div>
+        <div class="card__body"><em style="color:var(--muted-fg);opacity:0.7;">Hover to see achievements</em></div>
         <div class="card__expandable">
             <div class="card__expandable-inner">
                 <div class="card__expandable-content">
@@ -27,17 +27,13 @@
 
 @code {
     [Parameter]
-    public string Role { get; set; } = string.Empty;
+    public string Course { get; set; } = string.Empty;
     [Parameter]
     public string Duration { get; set; } = string.Empty;
     [Parameter]
+    public string University { get; set; } = string.Empty;
+    [Parameter]
     public string Company { get; set; } = string.Empty;
-    [Parameter]
-    public string From { get; set; } = string.Empty;
-    [Parameter]
-    public string To { get; set; } = string.Empty;
-    [Parameter]
-    public string Summary { get; set; } = string.Empty;
     [Parameter]
     public RenderFragment Options { get; set; } = default!;
 }
